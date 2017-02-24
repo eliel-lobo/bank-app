@@ -1,33 +1,44 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Account Movements</h1>
-
-<table>
+<%- model_class = AccountMovement -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Account</th>
-      <th>Value</th>
-      <th>Type</th>
-      <th>Origin</th>
-      <th colspan="3"></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:account_id) %></th>
+      <th><%= model_class.human_attribute_name(:value) %></th>
+      <th><%= model_class.human_attribute_name(:type) %></th>
+      <th><%= model_class.human_attribute_name(:origin) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @account_movements.each do |account_movement| %>
       <tr>
+        <td><%= link_to account_movement.id, account_movement_path(account_movement) %></td>
         <td><%= account_movement.account_id %></td>
         <td><%= account_movement.value %></td>
         <td><%= account_movement.type %></td>
         <td><%= account_movement.origin %></td>
-        <td><%= link_to 'Show', account_movement %></td>
-        <td><%= link_to 'Edit', edit_account_movement_path(account_movement) %></td>
-        <td><%= link_to 'Destroy', account_movement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%=l account_movement.created_at %></td>
+        <td>
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      account_movement_path(account_movement), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_account_movement_path(account_movement), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      account_movement_path(account_movement),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Account Movement', new_account_movement_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_account_movement_path,
+            :class => 'btn btn-primary' %>

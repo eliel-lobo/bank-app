@@ -1,6 +1,5 @@
-<h1>Editing Account Movement</h1>
-
-<%= render 'form', account_movement: @account_movement %>
-
-<%= link_to 'Show', @account_movement %> |
-<%= link_to 'Back', account_movements_path %>
+<%- model_class = AccountMovement -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
+<%= render :partial => 'form' %>
