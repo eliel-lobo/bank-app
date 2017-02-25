@@ -10,16 +10,33 @@
   <dd><%= @user.document_number %></dd>
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @user.email %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:password_digest) %>:</strong></dt>
-  <dd><%= @user.password_digest %></dd>
 </dl>
 
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              users_path, :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_user_path(@user), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              user_path(@user),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+<h3 class="sub-header">Cuenta # <%= @user.account_number %></h3>
+
+<h4> Saldo actual: <%= number_to_currency @user.balance %> </h4>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Transaccion #</th>
+        <th>Tipo</th>
+        <th>Fecha</th>
+        <th>Valor</th>
+        <th>Origen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.account_movements.each do |movement| %>
+        <tr>
+          <td><%= movement.id %></td>
+          <td>consignacion</td>
+          <td><%= movement.created_at.to_formatted_s(:short) %></td>
+          <td><%= number_to_currency movement.value %></td>
+          <td><%= movement.origin %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

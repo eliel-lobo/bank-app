@@ -21,4 +21,11 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+* to solve the livb8 installation problem on windows run `gem install libv8 -v '3.11.8.17' -- --with-system-v8`
+
+* to solve the issue with bcrypt every time you run `bundle install`
+```
+gem uninstall bcrypt
+gem uninstall bcrypt-rails
+gem install bcrypt --platform=ruby
+```
